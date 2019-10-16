@@ -16,7 +16,6 @@ public struct NotarizationInfo: Codable {
         case statusCode = "Status Code"
         case statusMessage = "Status Message"
         case status = "Status"
-
     }
 
     public var date: Date?

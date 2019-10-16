@@ -17,10 +17,12 @@ public struct NotarizationResponse: Codable {
         case toolVersion = "tool-version"
         case productErrors = "product-errors"
         case notarizationInfo = "notarization-info"
+        case notarizationHistory = "notarization-history"
     }
 
     public var notarizationUpload: NotarizationUpload?
     public var notarizationInfo: NotarizationInfo?
+    public var notarizationHistory: NotarizationHistory?
     public var successMessage: String?
     public var osVersion: String
     public var toolPath: String
