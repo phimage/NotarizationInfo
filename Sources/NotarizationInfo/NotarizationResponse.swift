@@ -27,7 +27,7 @@ public struct NotarizationResponse: Codable {
     public var osVersion: String
     public var toolPath: String
     public var toolVersion: String
-    public var productErrors: [NotaryError]?
+    public var productErrors: [NotarizationError]?
 
 }
 
@@ -43,5 +43,32 @@ extension NotarizationResponse {
 
     public init(from data: Data, decoder: PropertyListDecoder = PropertyListDecoder()) throws {
         self = try decoder.decode(NotarizationResponse.self, from: data)
+    }
+
+    public func getNotarizationUpload() throws -> NotarizationUpload {
+        guard let upload = self.notarizationUpload else {
+            let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationUpload],
+                                                debugDescription: "Failed to decode notarizationUpload")
+            throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationUpload, context)
+        }
+        return upload
+    }
+
+    public func getNotarizationInfo() throws -> NotarizationInfo {
+        guard let info = self.notarizationInfo else {
+            let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationInfo],
+                                                debugDescription: "Failed to decode notarizationInfo")
+            throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationInfo, context)
+        }
+        return info
+    }
+
+    public func getNotarizationHistory() throws -> NotarizationHistory {
+        guard let history = self.notarizationHistory else {
+            let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationHistory],
+                                                debugDescription: "Failed to decode notarizationHistory")
+            throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationHistory, context)
+        }
+        return history
     }
 }

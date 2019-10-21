@@ -1,5 +1,5 @@
 //
-//  NotaryError.swift
+//  NotarizationError.swift
 //  
 //
 //  Created by phimage on 13/10/2019.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class NotaryError: NSError, Codable {
+public final class NotarizationError: NSError, Codable {
 
     enum CodingKeys: String, CodingKey {
         case code
