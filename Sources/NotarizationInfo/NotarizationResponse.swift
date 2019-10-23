@@ -45,8 +45,11 @@ extension NotarizationResponse {
         self = try decoder.decode(NotarizationResponse.self, from: data)
     }
 
-    public func getNotarizationUpload() throws -> NotarizationUpload {
+    public func getNotarizationUpload(productError: Bool = true) throws -> NotarizationUpload {
         guard let upload = self.notarizationUpload else {
+            if let productError = self.productErrors?.first {
+                throw productError
+            }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationUpload],
                                                 debugDescription: "Failed to decode notarizationUpload")
             throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationUpload, context)
@@ -54,8 +57,11 @@ extension NotarizationResponse {
         return upload
     }
 
-    public func getNotarizationInfo() throws -> NotarizationInfo {
+    public func getNotarizationInfo(productError: Bool = true) throws -> NotarizationInfo {
         guard let info = self.notarizationInfo else {
+            if let productError = self.productErrors?.first {
+                throw productError
+            }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationInfo],
                                                 debugDescription: "Failed to decode notarizationInfo")
             throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationInfo, context)
@@ -63,8 +69,11 @@ extension NotarizationResponse {
         return info
     }
 
-    public func getNotarizationHistory() throws -> NotarizationHistory {
+    public func getNotarizationHistory(productError: Bool = true) throws -> NotarizationHistory {
         guard let history = self.notarizationHistory else {
+            if let productError = self.productErrors?.first {
+                throw productError
+            }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationHistory],
                                                 debugDescription: "Failed to decode notarizationHistory")
             throw DecodingError.keyNotFound(NotarizationResponse.CodingKeys.notarizationHistory, context)
