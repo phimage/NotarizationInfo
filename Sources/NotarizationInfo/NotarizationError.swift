@@ -7,7 +7,11 @@
 
 import Foundation
 
-public final class NotarizationError: NSError, Codable {
+public enum NotarizationError: Error {
+    case productErrors([ProductError])
+}
+
+public final class ProductError: NSError, Codable {
 
     enum CodingKeys: String, CodingKey {
         case code

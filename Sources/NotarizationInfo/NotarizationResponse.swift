@@ -27,7 +27,7 @@ public struct NotarizationResponse: Codable {
     public var osVersion: String
     public var toolPath: String
     public var toolVersion: String
-    public var productErrors: [NotarizationError]?
+    public var productErrors: [ProductError]?
 
 }
 
@@ -47,8 +47,8 @@ extension NotarizationResponse {
 
     public func getNotarizationUpload(productError: Bool = true) throws -> NotarizationUpload {
         guard let upload = self.notarizationUpload else {
-            if let productError = self.productErrors?.first {
-                throw productError
+            if let productErrors = self.productErrors {
+                throw NotarizationError.productErrors(productErrors)
             }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationUpload],
                                                 debugDescription: "Failed to decode notarizationUpload")
@@ -59,8 +59,8 @@ extension NotarizationResponse {
 
     public func getNotarizationInfo(productError: Bool = true) throws -> NotarizationInfo {
         guard let info = self.notarizationInfo else {
-            if let productError = self.productErrors?.first {
-                throw productError
+            if let productErrors = self.productErrors {
+                throw NotarizationError.productErrors(productErrors)
             }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationInfo],
                                                 debugDescription: "Failed to decode notarizationInfo")
@@ -71,8 +71,8 @@ extension NotarizationResponse {
 
     public func getNotarizationHistory(productError: Bool = true) throws -> NotarizationHistory {
         guard let history = self.notarizationHistory else {
-            if let productError = self.productErrors?.first {
-                throw productError
+            if let productErrors = self.productErrors {
+                throw NotarizationError.productErrors(productErrors)
             }
             let context = DecodingError.Context(codingPath: [NotarizationResponse.CodingKeys.notarizationHistory],
                                                 debugDescription: "Failed to decode notarizationHistory")
