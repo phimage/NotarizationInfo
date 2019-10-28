@@ -11,6 +11,29 @@ public enum NotarizationError: Error {
     case productErrors([ProductError])
 }
 
+extension NotarizationError: Codable {
+    enum CodingKeys: String, CodingKey {
+        case productErrors
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let errors = try? container.decode([ProductError].self, forKey: .productErrors) {
+            self = .productErrors(errors)
+        } else {
+            self = .productErrors([]) // or throw error
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if case .productErrors(let errors) = self {
+            try container.encode(errors, forKey: .productErrors)
+        }
+    }
+
+}
+
 public final class ProductError: NSError, Codable {
 
     enum CodingKeys: String, CodingKey {
